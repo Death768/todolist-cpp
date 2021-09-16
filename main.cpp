@@ -4,14 +4,16 @@
 #include <vector>
 using namespace std;
 
-void quit(map<char, string> arguments) {
-	cout << "Quitting..." << endl;
-	exit(0);
+void msgUser(string msg, bool quit) {
+	cout << msg << endl;
+	if(quit) exit(0);
 };
 
 void commandManager(string command, map<char, string> arguments) {
 	if(command == "quit") {
-		quit(arguments);
+		msgUser("Quitting...", true);
+	} else {
+		msgUser("I did not understand that command, please try again.", false);
 	}
 };
 
@@ -38,8 +40,20 @@ int main() {
 		vector<string> spaceSeperated;
 		seperateBySpaces(input, spaceSeperated);
 
-		//check for options
-		//make sure options are valid
+		if(spaceSeperated.size() % 2 != 1) {
+			msgUser("You did not input your arguments correctly.", false);
+			continue;
+		}
+
+		string command = spaceSeperated[0];
+		for(int i = 1; i < spaceSeperated.size(); i += 2) {
+			if(spaceSeperated[i][0] == '-') {
+				arguments.insert(pair<char, string>(spaceSeperated[i][1], spaceSeperated[i + 1]));
+			} else {
+				msgUser("I did not understand one of your arguments, please try again.", false);
+			}
+		}
+		commandManager(command, arguments);
 	}
 	return 0;
 }
