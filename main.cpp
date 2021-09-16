@@ -4,6 +4,17 @@
 #include <vector>
 using namespace std;
 
+void quit(map<char, string> arguments) {
+	cout << "Quitting..." << endl;
+	exit(0);
+};
+
+void commandManager(string command, map<char, string> arguments) {
+	if(command == "quit") {
+		quit(arguments);
+	}
+};
+
 void seperateBySpaces(string s, vector<string> &ret) {
 	int start = 0;
 	for(int i = 0; i < s.length(); i++) {
@@ -23,7 +34,7 @@ int main() {
 		getline(cin, input);
 
 		map<char, string> arguments;
-		
+
 		vector<string> spaceSeperated;
 		seperateBySpaces(input, spaceSeperated);
 
