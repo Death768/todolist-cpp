@@ -1,13 +1,10 @@
+#include <fstream>
 #include <iostream>
 #include <map>
 #include <string>
 #include <vector>
+#include "commands.h"
 using namespace std;
-
-void msgUser(string msg, bool quit) {
-	cout << msg << endl;
-	if(quit) exit(0);
-};
 
 void commandManager(string command, map<char, string> arguments) {
 	if(command == "quit") {
